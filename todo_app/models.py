@@ -17,7 +17,15 @@ class Todolist(models.Model):
         return self.title
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=64, verbose_name='название')
+
+    def __str__(self):
+        return self.name
+
+
 class ToDoItem(models.Model):
+    category = models.ForeignKey(Category, default="general", on_delete=models.CASCADE, verbose_name='категория')
     title = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -35,4 +43,3 @@ class ToDoItem(models.Model):
 
     class Meta:
         ordering = ["due_date"]
-
