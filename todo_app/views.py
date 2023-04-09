@@ -14,8 +14,3 @@ class ItemListView(ListView):
     def get_queryset(self):
         return ToDoItem.objects.filter(todo_list_id=self.kwargs["list_id"])
 
-    def get_context_data(self):
-        context = super().get_context_data()
-        context["todo_list"] = Todolist.objects.get(id=self.kwargs["list_id"])
-        return context
-
