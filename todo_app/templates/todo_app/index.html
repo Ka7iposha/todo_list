@@ -16,5 +16,11 @@
     <h4>У вас нет списков дел!<h4>
     {% endfor %}
 </ul>
+<p>
+    <input
+        value="Добавить новый список"
+        type="button"
+        onclick="location.href='{% url "list-add" %}'"/>
+</p>
 
 {% endblock %}
