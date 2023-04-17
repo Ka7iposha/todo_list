@@ -28,6 +28,11 @@
                 value="Добавить новый элемент"
                 type="button"
                 onclick="location.href='{% url "item-add" todo_list.id %}'" />
+            <input
+                value="Удалить этот список"
+                type="button"
+                onclick="location.href=
+                '{% url "list-delete" todo_list.id %}'" />
         </p>
     </div>
 </div>

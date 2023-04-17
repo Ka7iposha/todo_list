@@ -1,6 +1,6 @@
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Todolist, ToDoItem
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 class ListListView(ListView):
@@ -59,7 +59,6 @@ class ItemUpdate(UpdateView):
     fields = ["todo_list", "category", "title", "description", "due_date", "complete"]
     template_name = "todo_app/todo_item_form.html"
 
-
     def get_context_data(self):
         context = super(ItemUpdate, self).get_context_data()
         context["todo_list"] = self.object.todo_list
@@ -68,3 +67,21 @@ class ItemUpdate(UpdateView):
 
     def get_success_url(self):
         return reverse("list", args=[self.object.todo_list_id])
+
+
+class ListDelete(DeleteView):
+    model = Todolist
+    success_url = reverse_lazy("index")
+
+
+class ItemDelete(DeleteView):
+    model = ToDoItem
+
+    def get_success_url(self):
+        return reverse_lazy("list", args=[self.kwargs["list_id"]])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["todo_list"] = self.object.todo_list
+        return context
+
